@@ -11,12 +11,13 @@ namespace View
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите необходимое количество случайных чисел: ");
+            
             int num = 0;
             while (num < 1)
             {
                 try
                 {
+                    Console.WriteLine("Введите необходимое количество случайных чисел (целое неотрицательное число): ");
                     num = Convert.ToInt32(Console.ReadLine());
                 }
                 catch (Exception)
@@ -30,7 +31,7 @@ namespace View
             var sBob = new SilentBob();
             numb.NewNumber += jay.FetchNewNumber;
             numb.NewNumber += sBob.FetchNewNumber;
-            for (int i = 1; i < num; i++)
+            for (int i = 1; i <= num; i++)
             {
                 numb.Generate();
             }

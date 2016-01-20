@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Model
 {
@@ -13,12 +14,18 @@ namespace Model
 
         public event NewNumberGenerate NewNumber;
 
+        private static int _seed = Environment.TickCount;
+
+        private static readonly ThreadLocal<Random> randomWrapper = new ThreadLocal<Random>(() =>
+            new Random(Interlocked.Increment(ref _seed))
+        );
+
 
         public void Generate()
         {
-            Random rand = new Random();
-            int i = rand.Next();
-            NewNumber(i);
+            Random i = randomWrapper.Value;
+            int k = i.Next();
+            if (NewNumber != null) NewNumber(k);
         }
 
     }
